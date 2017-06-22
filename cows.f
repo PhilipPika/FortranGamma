@@ -20,6 +20,7 @@ C*********************************************************************C
          PRINT *,"Here as 1-GAMMQ"
          pp = 1 - GAMMQ(0.125,0.0003)
          PRINT *,pp
+         call MultiG()
 
       END PROGRAM
 C
