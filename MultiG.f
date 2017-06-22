@@ -4,8 +4,8 @@ c
       subroutine MultiG()
 !        include 'common_geo.inc'
 !        include 'common.inc'
-        real*8 kvalue(14,1), fvalue(14,1), POC(2,14), SPOC(14,1), SUMPOC
-     +(3,1),POC0,z,a,b,Aa,Bb,w0,db0
+        real*8 kvalue(14,1), fvalue(14,1), POC(1,14), SUMPOC(1,1),POC0,z
+     +,a,b,Aa,Bb,w0,db0
         integer nG,xx,i
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -27,7 +27,7 @@ c
       w0=0.11
       db0=27
       
-      do xx = 2,2
+      do xx = 1,1
       z = (xx-1)/100
      
       SUMPOC=0.0
@@ -45,12 +45,14 @@ c        write(*,*) 'Bb',Bb
 
         POC(xx,nG)=Aa*exp(a*z) + Bb*exp(b*z);
 
-        SUMPOC(xx,1) = SUMPOC(xx-1,1) + POC(xx,nG)
+       ! SUMPOC(xx,1) = SUMPOC(xx-1,1) + (POC(xx, i = 1,14))
+       ! SUMPOC(xx,1) = SUMPOC(xx-1,1) + POC(xx,nG)
+        SUMPOC(xx,1) = SUMPOC(xx,1) + POC(xx,nG)
       enddo
 !        SUMPOC(xx,1) = SUMPOC(xx-1,1) + POC(xx,nG)
       enddo
-      write(33,*) SUMPOC
       write(22,*) POC
+      write(33,*) SUMPOC
       END
 
 !      a11=(w0-(w0**2+4*db0(j)*kk)**(1/2))/(2*db0(j));
